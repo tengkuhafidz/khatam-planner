@@ -1,0 +1,149 @@
+<script lang="ts">
+  import { toJpeg } from "html-to-image";
+
+  import { calculatePagesPerPrayer } from "../utils/calculations";
+  import { Themes } from "../utils/themeClass";
+  import PrayerAllocation from "./PrayerAllocation.svelte";
+  import ThemeMenu from "./ThemeMenu.svelte";
+
+  let theme = Themes.Slate;
+
+  let isSavingPlan = false;
+  let days = 29;
+
+  let pagesAllocation = calculatePagesPerPrayer(days);
+  let { subuh, zuhur, asar, maghrib, isyak, remainder } = pagesAllocation;
+
+  const updateTheme = (newTheme: Themes) => {
+    theme = newTheme;
+  };
+
+  const onChangeDays = () => {
+    pagesAllocation = calculatePagesPerPrayer(days);
+    subuh = pagesAllocation.subuh;
+    zuhur = pagesAllocation.zuhur;
+    asar = pagesAllocation.asar;
+    maghrib = pagesAllocation.maghrib;
+    isyak = pagesAllocation.isyak;
+    remainder = pagesAllocation.remainder;
+  };
+
+  const updateRemainder = (shouldReduce: boolean) => {
+    shouldReduce ? remainder-- : remainder++;
+  };
+
+  const sharePlan = () => {
+    isSavingPlan = true;
+    toJpeg(document.getElementById("capture"), { quality: 0.95 }).then(
+      function (dataUrl) {
+        var link = document.createElement("a");
+        link.download = "my-khatam-plan.jpg";
+        link.href = dataUrl;
+        link.click();
+        isSavingPlan = false;
+      }
+    );
+  };
+</script>
+
+<div class="bg-slate-100  text-center" id="capture">
+  {#if !isSavingPlan}
+    <div id="theme-section" class="hidden">
+      <ThemeMenu {updateTheme} />
+    </div>
+  {/if}
+  <div class="mx-auto max-w-sm flex flex-col px-4 min-h-screen justify-evenly">
+    <div id="header-section" class="py-4 ">
+      <h1 class={`text-4xl font-bol`}>
+        <div class={`inline-flex text-slate-600`}>
+          My
+          {#if isSavingPlan}
+            {days}
+          {:else}
+            <input
+              type="text"
+              onClick="this.select();"
+              bind:value={days}
+              size={days < 2 ? 1 : days.toString().length}
+              on:change={onChangeDays}
+              class="text-center border border-dashed rounded mx-1 p-0 border-slate-900"
+            />
+          {/if}Days
+        </div>
+        <span class={`inline-block text-5xl text-slate-900`}>Khatam Plan</span>
+      </h1>
+    </div>
+    <div id="main-section" class="py-4">
+      <div class="grid grid-cols-2 text-xl gap-y-6">
+        <PrayerAllocation
+          prayer="Fajar"
+          pages={subuh}
+          {theme}
+          {updateRemainder}
+          {remainder}
+          {isSavingPlan}
+        />
+        <PrayerAllocation
+          prayer="Zuhur"
+          pages={zuhur}
+          {theme}
+          {updateRemainder}
+          {remainder}
+          {isSavingPlan}
+        />
+        <PrayerAllocation
+          prayer="Asar"
+          pages={asar}
+          {theme}
+          {updateRemainder}
+          {remainder}
+          {isSavingPlan}
+        />
+        <PrayerAllocation
+          prayer="Maghrib"
+          pages={maghrib}
+          {theme}
+          {updateRemainder}
+          {remainder}
+          {isSavingPlan}
+        />
+        <PrayerAllocation
+          prayer="Isya'"
+          pages={isyak}
+          {theme}
+          {updateRemainder}
+          {remainder}
+          {isSavingPlan}
+        />
+      </div>
+      {#if remainder > 0}
+        <p class={`text-lg italic mt-4 text-slate-900`}>
+          <span class="font-semibold underline decoration-double "
+            ><span class="text-2xl">*{remainder} </span>more {remainder === 1
+              ? "page"
+              : "pages"}
+          </span> to be allocated.
+        </p>
+      {/if}
+    </div>
+    <div id="bottom-section" class="py-4">
+      {#if isSavingPlan}
+        <p class={`text-sm  text-slate-900`}>
+          Generate your khatam plan at: <span class="font-semibold inline-block"
+            >khatam-planner.jariyah.app</span
+          >
+        </p>
+      {:else}
+        <button
+          class={`py-3 text-xl w-full border-b-8 text-white rounded ${
+            remainder > 0
+              ? "bg-gray-400  border-gray-600 cursor-disabled"
+              : "bg-slate-600  border-slate-900 hover:bg-slate-500 hover:border-slate-800"
+          }`}
+          on:click={sharePlan}
+          disabled={remainder > 0}>Save Plan</button
+        >
+      {/if}
+    </div>
+  </div>
+</div>
