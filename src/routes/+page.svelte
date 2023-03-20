@@ -7,7 +7,7 @@
 
   let theme = Themes.Slate;
 
-  let isSavingPlan = false;
+  let hasGeneratedPlan = false;
   let days = 29;
 
   let pagesAllocation = calculatePagesPerPrayer(days);
@@ -31,18 +31,24 @@
     shouldReduce ? remainder-- : remainder++;
   };
 
-  const sharePlan = async () => {
-    isSavingPlan = true;
-    const base64url = await toJpeg(document.getElementById("capture"));
-    const blob = await (await fetch(base64url)).blob();
-    const file = new File([blob], "my-khatam-planner.png", { type: blob.type });
+  const generatePlan = () => {
+    hasGeneratedPlan = true;
+  };
 
+  const sharePlan = async () => {
     try {
-      navigator.share({
-        title: "Hello",
-        text: "Check out this image!",
-        files: [file],
+      generatePlan();
+      const base64url = await toJpeg(document.getElementById("capture"));
+      const blob = await (await fetch(base64url)).blob();
+      const planImageFile = new File([blob], "my-khatam-planner.png", {
+        type: blob.type,
       });
+
+      const shareData = {
+        url: "https://khatam-planner.jariyah.app",
+        files: [planImageFile],
+      };
+      navigator.share(shareData);
     } catch (error) {
       console.log("Navigator Share Error", error);
     }
@@ -50,7 +56,7 @@
 </script>
 
 <div class="bg-slate-100  text-center" id="capture">
-  {#if !isSavingPlan}
+  {#if !hasGeneratedPlan}
     <div id="theme-section" class="hidden">
       <ThemeMenu {updateTheme} />
     </div>
@@ -60,7 +66,7 @@
       <h1 class={`text-4xl font-bol`}>
         <div class={`inline-flex text-slate-600`}>
           My
-          {#if isSavingPlan}
+          {#if hasGeneratedPlan}
             {days}
           {:else}
             <input
@@ -83,7 +89,7 @@
           {theme}
           {updateRemainder}
           {remainder}
-          {isSavingPlan}
+          isSavingPlan={hasGeneratedPlan}
         />
         <PrayerAllocation
           prayer="Zuhur"
@@ -91,7 +97,7 @@
           {theme}
           {updateRemainder}
           {remainder}
-          {isSavingPlan}
+          isSavingPlan={hasGeneratedPlan}
         />
         <PrayerAllocation
           prayer="Asar"
@@ -99,7 +105,7 @@
           {theme}
           {updateRemainder}
           {remainder}
-          {isSavingPlan}
+          isSavingPlan={hasGeneratedPlan}
         />
         <PrayerAllocation
           prayer="Maghrib"
@@ -107,7 +113,7 @@
           {theme}
           {updateRemainder}
           {remainder}
-          {isSavingPlan}
+          isSavingPlan={hasGeneratedPlan}
         />
         <PrayerAllocation
           prayer="Isya'"
@@ -115,7 +121,7 @@
           {theme}
           {updateRemainder}
           {remainder}
-          {isSavingPlan}
+          isSavingPlan={hasGeneratedPlan}
         />
       </div>
       {#if remainder > 0}
@@ -129,13 +135,13 @@
       {/if}
     </div>
     <div id="bottom-section" class="py-4">
-      {#if isSavingPlan}
+      {#if hasGeneratedPlan}
         <p class={`text-sm  text-slate-900`}>
           Generate your khatam plan at: <span class="font-semibold inline-block"
             >khatam-planner.jariyah.app</span
           >
         </p>
-      {:else}
+      {:else if navigator?.canShare}
         <button
           class={`py-3 text-xl w-full border-b-8 text-white rounded ${
             remainder > 0
@@ -143,7 +149,17 @@
               : "bg-slate-600  border-slate-900 hover:bg-slate-500 hover:border-slate-800"
           }`}
           on:click={sharePlan}
-          disabled={remainder > 0}>Save Plan</button
+          disabled={remainder > 0}>Share Plan</button
+        >
+      {:else}
+        <button
+          class={`py-3 text-xl w-full border-b-8 text-white rounded ${
+            remainder > 0
+              ? "bg-gray-400  border-gray-600 cursor-disabled"
+              : "bg-slate-600  border-slate-900 hover:bg-slate-500 hover:border-slate-800"
+          }`}
+          on:click={generatePlan}
+          disabled={remainder > 0}>Generate Page For Screenshot</button
         >
       {/if}
     </div>
