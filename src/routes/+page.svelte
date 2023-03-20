@@ -48,7 +48,7 @@
       });
 
       const shareData = {
-        text: "Khatam plan generated with ❤️ by https://khatam-planner.jariyah.app",
+        text: "Khatam plan generated with 💚 by https://khatam-planner.jariyah.app",
         files: [planImageFile],
       };
       navigator.share(shareData);
