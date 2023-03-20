@@ -1,6 +1,5 @@
 <script lang="ts">
   import { toJpeg } from "html-to-image";
-
   import { calculatePagesPerPrayer } from "../utils/calculations";
   import { Themes } from "../utils/themeClass";
   import PrayerAllocation from "./PrayerAllocation.svelte";
