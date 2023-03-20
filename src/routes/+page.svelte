@@ -48,7 +48,6 @@
       });
 
       const shareData = {
-        url: "https://khatam-planner.jariyah.app",
         files: [planImageFile],
       };
       navigator.share(shareData);
