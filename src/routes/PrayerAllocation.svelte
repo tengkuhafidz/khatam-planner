@@ -25,11 +25,11 @@
   };
 </script>
 
-<div class={`bg-slate-900 py-4 font-bold`}>
+<div class={`bg-slate-800 py-4 font-bold`}>
   <h2 class="text-white">{prayer}</h2>
 </div>
 <div
-  class={`bg-white py-4 font-bold text-slate-900 inline-flex justify-center`}
+  class={`bg-white py-4 font-bold text-slate-800 inline-flex justify-center`}
 >
   <div
     class={`${

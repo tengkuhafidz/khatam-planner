@@ -59,7 +59,7 @@
   };
 </script>
 
-<div class="bg-slate-100  text-center" id="capture">
+<div class="bg-slate-200  text-center" id="capture">
   {#if !showGeneratedPlan}
     <div id="theme-section" class="hidden">
       <ThemeMenu {updateTheme} />
@@ -78,11 +78,11 @@
               onClick="this.select();"
               bind:value={days}
               on:change={onChangeDays}
-              class="text-center border border-dashed rounded mx-1 p-0 border-slate-900 w-16"
+              class="text-center border border-dashed rounded mx-1 p-0 border-slate-800 w-16"
             />
           {/if}Days
         </div>
-        <span class={`inline-block text-5xl text-slate-900`}>Khatam Plan</span>
+        <span class={`inline-block text-5xl text-slate-800`}>Khatam Plan</span>
       </h1>
     </div>
     <div id="main-section" class="py-4">
@@ -129,7 +129,7 @@
         />
       </div>
       {#if remainder > 0}
-        <p class={`text-lg italic mt-4 text-slate-900`}>
+        <p class={`text-lg italic mt-4 text-slate-800`}>
           <span class="font-semibold underline decoration-double "
             ><span class="text-2xl">*{remainder} </span>more {remainder === 1
               ? "page"
@@ -140,7 +140,7 @@
     </div>
     <div id="bottom-section" class="py-4">
       {#if showGeneratedPlan}
-        <p class={`text-sm  text-slate-900`}>
+        <p class={`text-sm  text-slate-800`}>
           Generate your khatam plan at: <span class="font-semibold inline-block"
             >khatam-planner.jariyah.app</span
           >
@@ -150,7 +150,7 @@
           class={`py-3 text-xl w-full border-b-8 text-white rounded ${
             remainder > 0
               ? "bg-gray-400  border-gray-600 cursor-disabled"
-              : "bg-slate-600  border-slate-900 hover:bg-slate-500 hover:border-slate-800"
+              : "bg-slate-600  border-slate-800 hover:bg-slate-500 hover:border-slate-800"
           }`}
           on:click={sharePlan}
           disabled={remainder > 0}>Share Plan</button
@@ -160,7 +160,7 @@
           class={`py-3 text-xl w-full border-b-8 text-white rounded ${
             remainder > 0
               ? "bg-gray-400  border-gray-600 cursor-disabled"
-              : "bg-slate-600  border-slate-900 hover:bg-slate-500 hover:border-slate-800"
+              : "bg-slate-600  border-slate-800 hover:bg-slate-500 hover:border-slate-800"
           }`}
           on:click={generatePlan}
           disabled={remainder > 0}>Generate Page For Screenshot</button
