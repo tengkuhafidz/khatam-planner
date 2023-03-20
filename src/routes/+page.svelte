@@ -31,17 +31,19 @@
     shouldReduce ? remainder-- : remainder++;
   };
 
-  const sharePlan = () => {
+  const sharePlan = async () => {
     isSavingPlan = true;
-    toJpeg(document.getElementById("capture"), { quality: 0.95 }).then(
-      function (dataUrl) {
-        var link = document.createElement("a");
-        link.download = "my-khatam-plan.jpg";
-        link.href = dataUrl;
-        link.click();
-        isSavingPlan = false;
+    const imageUri = await toJpeg(document.getElementById("capture"));
+
+    try {
+      if (navigator.canShare) {
+        await navigator.share({ url: imageUri });
+      } else {
+        await navigator.clipboard.writeText(imageUri);
       }
-    );
+    } catch (error) {
+      console.log("Navigator Share Error", error);
+    }
   };
 </script>
 
