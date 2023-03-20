@@ -33,14 +33,16 @@
 
   const sharePlan = async () => {
     isSavingPlan = true;
-    const imageUri = await toJpeg(document.getElementById("capture"));
+    const base64url = await toJpeg(document.getElementById("capture"));
+    const blob = await (await fetch(base64url)).blob();
+    const file = new File([blob], "my-khatam-planner.png", { type: blob.type });
 
     try {
-      if (navigator.canShare) {
-        await navigator.share({ url: imageUri });
-      } else {
-        await navigator.clipboard.writeText(imageUri);
-      }
+      navigator.share({
+        title: "Hello",
+        text: "Check out this image!",
+        files: [file],
+      });
     } catch (error) {
       console.log("Navigator Share Error", error);
     }
