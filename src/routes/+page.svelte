@@ -2,6 +2,7 @@
   import { toJpeg } from "html-to-image";
   import { calculatePagesPerPrayer } from "../utils/calculations";
   import { Themes } from "../utils/themeClass";
+  import ExternalIcon from "./ExternalIcon.svelte";
   import PrayerAllocation from "./PrayerAllocation.svelte";
   import ThemeMenu from "./ThemeMenu.svelte";
 
@@ -167,4 +168,12 @@
       {/if}
     </div>
   </div>
+</div>
+<div class="pt-12 bg-slate-200">
+  <a href="https://t.me/khatam_challenge_bot" target="_blank">
+    <div class="py-2 bg-slate-400  text-slate-900 font-light text-center">
+      <p class="inline underline">Khatam with your loved ones on Telegram</p>
+      <ExternalIcon />
+    </div>
+  </a>
 </div>
