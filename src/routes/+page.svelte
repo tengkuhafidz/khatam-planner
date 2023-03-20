@@ -63,9 +63,8 @@
               type="text"
               onClick="this.select();"
               bind:value={days}
-              size={days < 2 ? 1 : days.toString().length}
               on:change={onChangeDays}
-              class="text-center border border-dashed rounded mx-1 p-0 border-slate-900"
+              class="text-center border border-dashed rounded mx-1 p-0 border-slate-900 w-16"
             />
           {/if}Days
         </div>
