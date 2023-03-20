@@ -8,6 +8,9 @@
   let theme = Themes.Slate;
 
   let hasGeneratedPlan = false;
+  let isSharingPlan = false;
+  $: showGeneratedPlan = hasGeneratedPlan || isSharingPlan;
+
   let days = 29;
 
   let pagesAllocation = calculatePagesPerPrayer(days);
@@ -37,7 +40,7 @@
 
   const sharePlan = async () => {
     try {
-      generatePlan();
+      isSharingPlan = true;
       const base64url = await toJpeg(document.getElementById("capture"));
       const blob = await (await fetch(base64url)).blob();
       const planImageFile = new File([blob], "my-khatam-planner.png", {
@@ -49,6 +52,7 @@
         files: [planImageFile],
       };
       navigator.share(shareData);
+      isSharingPlan = false;
     } catch (error) {
       console.log("Navigator Share Error", error);
     }
@@ -56,7 +60,7 @@
 </script>
 
 <div class="bg-slate-100  text-center" id="capture">
-  {#if !hasGeneratedPlan}
+  {#if !showGeneratedPlan}
     <div id="theme-section" class="hidden">
       <ThemeMenu {updateTheme} />
     </div>
@@ -66,7 +70,7 @@
       <h1 class={`text-4xl font-bol`}>
         <div class={`inline-flex text-slate-600`}>
           My
-          {#if hasGeneratedPlan}
+          {#if showGeneratedPlan}
             {days}
           {:else}
             <input
@@ -89,7 +93,7 @@
           {theme}
           {updateRemainder}
           {remainder}
-          isSavingPlan={hasGeneratedPlan}
+          isSavingPlan={showGeneratedPlan}
         />
         <PrayerAllocation
           prayer="Zuhur"
@@ -97,7 +101,7 @@
           {theme}
           {updateRemainder}
           {remainder}
-          isSavingPlan={hasGeneratedPlan}
+          isSavingPlan={showGeneratedPlan}
         />
         <PrayerAllocation
           prayer="Asar"
@@ -105,7 +109,7 @@
           {theme}
           {updateRemainder}
           {remainder}
-          isSavingPlan={hasGeneratedPlan}
+          isSavingPlan={showGeneratedPlan}
         />
         <PrayerAllocation
           prayer="Maghrib"
@@ -113,7 +117,7 @@
           {theme}
           {updateRemainder}
           {remainder}
-          isSavingPlan={hasGeneratedPlan}
+          isSavingPlan={showGeneratedPlan}
         />
         <PrayerAllocation
           prayer="Isya'"
@@ -121,7 +125,7 @@
           {theme}
           {updateRemainder}
           {remainder}
-          isSavingPlan={hasGeneratedPlan}
+          isSavingPlan={showGeneratedPlan}
         />
       </div>
       {#if remainder > 0}
@@ -135,7 +139,7 @@
       {/if}
     </div>
     <div id="bottom-section" class="py-4">
-      {#if hasGeneratedPlan}
+      {#if showGeneratedPlan}
         <p class={`text-sm  text-slate-900`}>
           Generate your khatam plan at: <span class="font-semibold inline-block"
             >khatam-planner.jariyah.app</span
