@@ -3,7 +3,7 @@
   import { calculatePagesPerPrayer } from "../utils/calculations";
   import ExternalIcon from "./ExternalIcon.svelte";
   import PrayerAllocation from "./PrayerAllocation.svelte";
-
+import { onMount } from 'svelte';
   let hasGeneratedPlan = true;
   let isSharingPlan = false;
   $: showGeneratedPlan = hasGeneratedPlan || isSharingPlan;
