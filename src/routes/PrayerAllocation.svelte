@@ -38,7 +38,7 @@
   >
     <MinusIcon />
   </div>
-  <p class="mx-2 inline-block">{pages} {pages === 1 ? "page" : "pages"}</p>
+  <p class="mx-2">{pages} {pages === 1 ? "page" : "pages"}</p>
 
   <div
     class={` ${
