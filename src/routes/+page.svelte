@@ -141,7 +141,7 @@
               : "bg-slate-600  border-slate-800 hover:bg-slate-500 hover:border-slate-800"
           }`}
           on:click={sharePlan}
-          disabled={remainder > 0}>Share Plan &nbsp;✅</button
+          disabled={remainder > 0}>Save Plan &nbsp;💾</button
         >
       {:else}
         <p class={`text-sm  text-slate-800`}>
