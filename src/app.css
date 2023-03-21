@@ -1,12 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 h1, h2 {
     font-family: 'Lora', serif;
-    font-style: italic;
     font-weight: 700; 
+    font-style: italic;
 }
 
 html {
