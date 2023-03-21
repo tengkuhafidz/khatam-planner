@@ -9,7 +9,7 @@
   let isSharingPlan = false;
   $: showGeneratedPlan = hasGeneratedPlan || isSharingPlan;
 
-  let theme = Themes.Teal;
+  let theme = Themes.Slate;
 
   const updateTheme = (newTheme: Themes) => {
     theme = newTheme;
@@ -71,7 +71,7 @@
     id="plan-section"
   >
     {#if !showGeneratedPlan}
-      <div id="theme-section">
+      <div id="theme-section" class="hidden">
         <ThemeMenu {updateTheme} />
       </div>
     {/if}
