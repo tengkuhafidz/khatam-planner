@@ -4,7 +4,7 @@
   import ExternalIcon from "./ExternalIcon.svelte";
   import PrayerAllocation from "./PrayerAllocation.svelte";
 
-  let hasGeneratedPlan = false;
+  let hasGeneratedPlan = true;
   let isSharingPlan = false;
   $: showGeneratedPlan = hasGeneratedPlan || isSharingPlan;
 
@@ -34,7 +34,7 @@
   const sharePlan = async () => {
     try {
       isSharingPlan = true;
-      setTimeout(async () => {
+    
         const base64url = await toJpeg(document.getElementById("capture"));
         const blob = await (await fetch(base64url)).blob();
         const planImageFile = new File([blob], "my-khatam-planner.png", {
@@ -47,14 +47,15 @@
 
         navigator.share(shareData);
         isSharingPlan = false;
-      }, 1000)
-      
-
       
     } catch (error) {
       console.log("Navigator Share Error", error);
     }
   };
+
+ 	onMount( () => {
+		hasGeneratedPlan = false
+	});
 </script>
 
 <div class="bg-slate-200  text-center" id="capture">
