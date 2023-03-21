@@ -7,7 +7,7 @@
   export let pages: number;
   export let remainder: number;
   export let updateRemainder: (shouldReduce: boolean) => void;
-  export let isSavingPlan = false;
+  export let hasGeneratedPlan = false;
   export let theme: Themes;
 
   const increasePages = () => {
@@ -31,7 +31,7 @@
 <div
   class={`bg-white py-4 font-semibold ${themes[theme].text.dark} ${themes[theme].border.dark} flex justify-center`}
 >
-  {#if !isSavingPlan}
+  {#if !hasGeneratedPlan}
     <div
       class={`${
         pages > 0 ? "cursor-pointer" : "text-gray-400 cursor-not-allowed"
@@ -42,12 +42,15 @@
       <MinusIcon />
     </div>
   {/if}
-  <p class="mx-2">{pages} {pages === 1 ? "page" : "pages"}</p>
-  {#if !isSavingPlan}
+  <p class={`${hasGeneratedPlan ? "" : "mx-2"}`}>
+    {pages}
+    {pages === 1 ? "page" : "pages"}
+  </p>
+  {#if !hasGeneratedPlan}
     <div
       class={` ${
         remainder > 0 ? "cursor-pointer" : "text-gray-400 cursor-not-allowed"
-      } ${isSavingPlan ? "hidden" : ""}`}
+      } ${hasGeneratedPlan ? "hidden" : ""}`}
       on:click={increasePages}
       on:keypress={() => {}}
     >

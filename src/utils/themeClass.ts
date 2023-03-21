@@ -1,7 +1,7 @@
 export enum Themes {
     Slate = 'slate',
     Sky = 'sky',
-    Teal = 'teal',
+    Emerald = 'emerald',
     Pink = 'pink',
 }
 
@@ -62,19 +62,19 @@ export const themes = {
         },
         button: "bg-sky-600  border-sky-800 hover:bg-sky-500 hover:border-sky-800"
     },
-    [Themes.Teal]: {
+    [Themes.Emerald]: {
         text: {
-            base: "text-teal-600",
-            dark: "text-teal-800"
+            base: "text-emerald-600",
+            dark: "text-emerald-800"
         },
         bg: {
-            light: "bg-teal-50",
-            base: "bg-teal-200",
-            dark: "bg-teal-800"
+            light: "bg-emerald-50",
+            base: "bg-emerald-200",
+            dark: "bg-emerald-800"
         },
         border: {
-            dark: "border-teal-800"
+            dark: "border-emerald-800"
         },
-        button: "bg-teal-600  border-teal-800 hover:bg-teal-500 hover:border-teal-800"
+        button: "bg-emerald-600  border-emerald-800 hover:bg-emerald-500 hover:border-emerald-800"
     }
 }

@@ -7,7 +7,6 @@
   import ThemeMenu from "./ThemeMenu.svelte";
   let hasGeneratedPlan = false;
   let isSharingPlan = false;
-  $: showGeneratedPlan = hasGeneratedPlan || isSharingPlan;
 
   let theme = Themes.Slate;
 
@@ -69,8 +68,8 @@
   <div
     class={`${themes[theme].bg.light} mx-auto max-w-sm flex flex-col px-4 min-h-screen justify-evenly`}
   >
-    {#if !showGeneratedPlan}
-      <div id="theme-section" class="hidden">
+    {#if !hasGeneratedPlan}
+      <div id="theme-section">
         <ThemeMenu {updateTheme} />
       </div>
     {/if}
@@ -78,7 +77,7 @@
       <h1 class={`text-4xl font-bol`}>
         <div class={`inline-flex ${themes[theme].text.base}`}>
           My
-          {#if showGeneratedPlan}
+          {#if hasGeneratedPlan}
             {days}
           {:else}
             <input
@@ -102,7 +101,7 @@
           pages={subuh}
           {updateRemainder}
           {remainder}
-          isSavingPlan={showGeneratedPlan}
+          {hasGeneratedPlan}
           {theme}
         />
         <PrayerAllocation
@@ -110,7 +109,7 @@
           pages={zuhur}
           {updateRemainder}
           {remainder}
-          isSavingPlan={showGeneratedPlan}
+          {hasGeneratedPlan}
           {theme}
         />
         <PrayerAllocation
@@ -118,7 +117,7 @@
           pages={asar}
           {updateRemainder}
           {remainder}
-          isSavingPlan={showGeneratedPlan}
+          {hasGeneratedPlan}
           {theme}
         />
         <PrayerAllocation
@@ -126,7 +125,7 @@
           pages={maghrib}
           {updateRemainder}
           {remainder}
-          isSavingPlan={showGeneratedPlan}
+          {hasGeneratedPlan}
           {theme}
         />
         <PrayerAllocation
@@ -134,7 +133,7 @@
           pages={isyak}
           {updateRemainder}
           {remainder}
-          isSavingPlan={showGeneratedPlan}
+          {hasGeneratedPlan}
           {theme}
         />
       </div>

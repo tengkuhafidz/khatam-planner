@@ -5,7 +5,12 @@
     MenuItems,
     MenuItem,
   } from "@rgossiaux/svelte-headlessui";
-  import { getThemeClass, ThemeItems, Themes } from "../utils/themeClass";
+  import {
+    getThemeClass,
+    ThemeItems,
+    themes,
+    Themes,
+  } from "../utils/themeClass";
 
   export let updateTheme: (theme: Themes) => void;
 </script>
@@ -22,17 +27,17 @@
       >
     </div>
     <MenuItems
-      class="absolute right-0 mt-2 w-24 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+      class="absolute right-0 mt-2 w-28 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
     >
       {#each Object.values(Themes) as theme}
         <div class="px-1 py-1">
           <MenuItem let:active>
             <button
               on:click={() => updateTheme(theme)}
-              class={`text-${theme}-600 hover:bg-${theme}-600 hover:text-white group flex w-full items-center rounded-md px-2 py-2 text-sm flex justify-between`}
+              class={`${themes[theme].text.base} capitalize group flex w-full items-center rounded-md px-2 py-2 text-sm flex justify-between`}
               >{theme}
               <div
-                class={`inline rounded-full bg-${theme}-900 w-4 h-4 align-right border border-white`}
+                class={`inline rounded-full ${themes[theme].bg.dark} w-4 h-4 align-right border border-white`}
               /></button
             ></MenuItem
           >
