@@ -1,12 +1,8 @@
 <script lang="ts">
   import { toJpeg } from "html-to-image";
   import { calculatePagesPerPrayer } from "../utils/calculations";
-  import { Themes } from "../utils/themeClass";
   import ExternalIcon from "./ExternalIcon.svelte";
   import PrayerAllocation from "./PrayerAllocation.svelte";
-  import ThemeMenu from "./ThemeMenu.svelte";
-
-  let theme = Themes.Slate;
 
   let hasGeneratedPlan = false;
   let isSharingPlan = false;
@@ -16,10 +12,6 @@
 
   let pagesAllocation = calculatePagesPerPrayer(days);
   let { subuh, zuhur, asar, maghrib, isyak, remainder } = pagesAllocation;
-
-  const updateTheme = (newTheme: Themes) => {
-    theme = newTheme;
-  };
 
   const onChangeDays = () => {
     pagesAllocation = calculatePagesPerPrayer(days);
@@ -62,11 +54,6 @@
 </script>
 
 <div class="bg-slate-200  text-center" id="capture">
-  {#if !showGeneratedPlan}
-    <div id="theme-section" class="hidden">
-      <ThemeMenu {updateTheme} />
-    </div>
-  {/if}
   <div class="mx-auto max-w-sm flex flex-col px-4 min-h-screen justify-evenly">
     <div id="header-section" class="py-4 ">
       <h1 class={`text-4xl font-bol`}>
@@ -92,7 +79,6 @@
         <PrayerAllocation
           prayer="Fajar"
           pages={subuh}
-          {theme}
           {updateRemainder}
           {remainder}
           isSavingPlan={showGeneratedPlan}
@@ -100,7 +86,6 @@
         <PrayerAllocation
           prayer="Zuhur"
           pages={zuhur}
-          {theme}
           {updateRemainder}
           {remainder}
           isSavingPlan={showGeneratedPlan}
@@ -108,7 +93,6 @@
         <PrayerAllocation
           prayer="Asar"
           pages={asar}
-          {theme}
           {updateRemainder}
           {remainder}
           isSavingPlan={showGeneratedPlan}
@@ -116,7 +100,6 @@
         <PrayerAllocation
           prayer="Maghrib"
           pages={maghrib}
-          {theme}
           {updateRemainder}
           {remainder}
           isSavingPlan={showGeneratedPlan}
@@ -124,7 +107,6 @@
         <PrayerAllocation
           prayer="Isya'"
           pages={isyak}
-          {theme}
           {updateRemainder}
           {remainder}
           isSavingPlan={showGeneratedPlan}
