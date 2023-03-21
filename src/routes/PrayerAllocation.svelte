@@ -1,11 +1,9 @@
 <script lang="ts">
-  import { Themes } from "../utils/themeClass";
   import MinusIcon from "./MinusIcon.svelte";
   import PlusIcon from "./PlusIcon.svelte";
 
   export let prayer: string;
   export let pages: number;
-  export let theme: Themes;
   export let remainder: number;
   export let updateRemainder: (shouldReduce: boolean) => void;
   export let isSavingPlan = false;
