@@ -146,24 +146,18 @@
               : "bg-slate-600  border-slate-800 hover:bg-slate-500 hover:border-slate-800"
           }`}
           on:click={sharePlan}
-          disabled={remainder > 0}>Save Plan &nbsp;💾</button
-        >
-        <p on:click={resetPlan} class="mt-4 underline">Reset Plan</p>
-      {:else}
-        <button
-          class={`py-3 text-xl w-full border-b-8 text-white rounded ${
-            remainder > 0
-              ? "bg-gray-400  border-gray-600 cursor-disabled"
-              : "bg-slate-600  border-slate-800 hover:bg-slate-500 hover:border-slate-800"
-          }`}
-          on:click={sharePlan}
           disabled={remainder > 0}>Save Plan &nbsp;✅</button
         >
         <p
           on:click={resetPlan}
           class="mt-4 underline text-slate-600 hover:text-slate-800 cursor-pointer"
         >
-          Back to draft
+          Back to draft plan
+        </p>
+      {:else}
+        <p class={`text-sm  text-slate-800`}>
+          Generate your khatam plan at: <br />
+          <span class="font-bold">khatam-planner.jariyah.app</span>
         </p>
       {/if}
     </div>
