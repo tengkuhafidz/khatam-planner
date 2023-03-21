@@ -29,7 +29,9 @@
   <h2 class="text-white">{prayer}</h2>
 </div>
 <div
-  class={`bg-white py-4 font-semibold ${themes[theme].text.dark} ${themes[theme].border.dark} flex justify-center`}
+  class={`bg-white py-4 font-semibold ${themes[theme].text.dark} ${
+    themes[theme].border.dark
+  } ${hasGeneratedPlan ? "text-center" : "flex justify-center"}`}
 >
   {#if !hasGeneratedPlan}
     <div
