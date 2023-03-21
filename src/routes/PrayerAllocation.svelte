@@ -7,7 +7,7 @@
   export let pages: number;
   export let remainder: number;
   export let updateRemainder: (shouldReduce: boolean) => void;
-  export let hasGeneratedPlan = false;
+  export let isSharingPlan = false;
   export let theme: Themes;
 
   const increasePages = () => {
@@ -31,9 +31,9 @@
 <div
   class={`bg-white py-4 font-semibold ${themes[theme].text.dark} ${
     themes[theme].border.dark
-  } ${hasGeneratedPlan ? "text-center" : "flex justify-center"}`}
+  } ${isSharingPlan ? "text-center" : "flex justify-center"}`}
 >
-  {#if !hasGeneratedPlan}
+  {#if !isSharingPlan}
     <div
       class={`${
         pages > 0 ? "cursor-pointer" : "text-gray-400 cursor-not-allowed"
@@ -44,15 +44,15 @@
       <MinusIcon />
     </div>
   {/if}
-  <p class={`${hasGeneratedPlan ? "" : "mx-2"}`}>
+  <p class={`${isSharingPlan ? "" : "mx-2"}`}>
     {pages}
     {pages === 1 ? "page" : "pages"}
   </p>
-  {#if !hasGeneratedPlan}
+  {#if !isSharingPlan}
     <div
       class={` ${
         remainder > 0 ? "cursor-pointer" : "text-gray-400 cursor-not-allowed"
-      } ${hasGeneratedPlan ? "hidden" : ""}`}
+      } ${isSharingPlan ? "hidden" : ""}`}
       on:click={increasePages}
       on:keypress={() => {}}
     >

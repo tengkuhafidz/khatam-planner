@@ -5,8 +5,9 @@
   import ExternalIcon from "./ExternalIcon.svelte";
   import PrayerAllocation from "./PrayerAllocation.svelte";
   import ThemeMenu from "./ThemeMenu.svelte";
-  let hasGeneratedPlan = false;
   let isSharingPlan = false;
+  let hasGeneratedPlan = false;
+  $: showGeneratedPlan = isSharingPlan || hasGeneratedPlan;
 
   let theme = Themes.Slate;
 
@@ -37,11 +38,6 @@
     hasGeneratedPlan = true;
   };
 
-  const resetPlan = () => {
-    isSharingPlan = false;
-    hasGeneratedPlan = false;
-  };
-
   const sharePlan = async () => {
     try {
       isSharingPlan = true;
@@ -70,7 +66,7 @@
   <div
     class={`${themes[theme].bg.light} mx-auto max-w-sm flex flex-col px-4 min-h-screen justify-evenly`}
   >
-    {#if !hasGeneratedPlan}
+    {#if !showGeneratedPlan}
       <div id="theme-section">
         <ThemeMenu {updateTheme} />
       </div>
@@ -79,7 +75,7 @@
       <h1 class={`text-4xl font-bol`}>
         <div class={`inline-flex ${themes[theme].text.base}`}>
           My
-          {#if hasGeneratedPlan}
+          {#if showGeneratedPlan}
             {days}
           {:else}
             <input
@@ -103,7 +99,7 @@
           pages={subuh}
           {updateRemainder}
           {remainder}
-          {hasGeneratedPlan}
+          isSharingPlan={showGeneratedPlan}
           {theme}
         />
         <PrayerAllocation
@@ -111,7 +107,7 @@
           pages={zuhur}
           {updateRemainder}
           {remainder}
-          {hasGeneratedPlan}
+          isSharingPlan={showGeneratedPlan}
           {theme}
         />
         <PrayerAllocation
@@ -119,7 +115,7 @@
           pages={asar}
           {updateRemainder}
           {remainder}
-          {hasGeneratedPlan}
+          isSharingPlan={showGeneratedPlan}
           {theme}
         />
         <PrayerAllocation
@@ -127,7 +123,7 @@
           pages={maghrib}
           {updateRemainder}
           {remainder}
-          {hasGeneratedPlan}
+          isSharingPlan={showGeneratedPlan}
           {theme}
         />
         <PrayerAllocation
@@ -135,7 +131,7 @@
           pages={isyak}
           {updateRemainder}
           {remainder}
-          {hasGeneratedPlan}
+          isSharingPlan={showGeneratedPlan}
           {theme}
         />
       </div>
@@ -150,18 +146,12 @@
       {/if}
     </div>
     <div id="bottom-section" class="py-4">
-      {#if !hasGeneratedPlan}
-        <button
-          class={`py-3 text-xl w-full border-b-8 text-white rounded ${
-            remainder > 0
-              ? "bg-gray-400  border-gray-600 cursor-disabled"
-              : themes[theme].button
-          }`}
-          on:click={generatePlan}
-          disabled={remainder > 0}
-          >View Generated Plan {#if remainder === 0}&nbsp;👀{/if}</button
-        >
-      {:else if navigator?.canShare && !isSharingPlan}
+      {#if showGeneratedPlan}
+        <p class={`text-sm  ${themes[theme].text.dark}`}>
+          Generate your khatam plan at: <br />
+          <span class="font-bold">khatam-planner.jariyah.app</span>
+        </p>
+      {:else if navigator?.canShare}
         <button
           class={`py-3 text-xl w-full border-b-8 text-white rounded ${
             remainder > 0
@@ -171,17 +161,16 @@
           on:click={sharePlan}
           disabled={remainder > 0}>Save Plan &nbsp;✅</button
         >
-        <p
-          on:click={resetPlan}
-          class="mt-4 underline text-slate-600 hover:text-slate-800 cursor-pointer"
-        >
-          Back to draft plan
-        </p>
       {:else}
-        <p class={`text-sm  ${themes[theme].text.dark}`}>
-          Generate your khatam plan at: <br />
-          <span class="font-bold">khatam-planner.jariyah.app</span>
-        </p>
+        <button
+          class={`py-3 text-xl w-full border-b-8 text-white rounded ${
+            remainder > 0
+              ? "bg-gray-400  border-gray-600 cursor-disabled"
+              : themes[theme].button
+          }`}
+          on:click={generatePlan}
+          disabled={remainder > 0}>Confirm Plan &nbsp;✅</button
+        >
       {/if}
     </div>
   </div>
