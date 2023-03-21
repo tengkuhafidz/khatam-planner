@@ -65,10 +65,9 @@
   };
 </script>
 
-<div class={`${themes[theme].bg.light}`}>
+<div class={`${themes[theme].bg.light} text-center`} id="plan-section">
   <div
-    class={`${themes[theme].bg.light} text-center mx-auto max-w-sm flex flex-col px-4 min-h-screen justify-evenly`}
-    id="plan-section"
+    class={`${themes[theme].bg.light} mx-auto max-w-sm flex flex-col px-4 min-h-screen justify-evenly`}
   >
     {#if !showGeneratedPlan}
       <div id="theme-section" class="hidden">
@@ -185,14 +184,14 @@
       {/if}
     </div>
   </div>
-  <div class="pt-12">
-    <a href="https://t.me/khatam_challenge_bot" target="_blank">
-      <div
-        class={`py-2 ${themes[theme].bg.base} ${themes[theme].text.dark} font-light text-center`}
-      >
-        <p class="inline underline">Khatam with your loved ones on Telegram</p>
-        <ExternalIcon />
-      </div>
-    </a>
-  </div>
+</div>
+<div class={`pt-12 ${themes[theme].bg.light}`}>
+  <a href="https://t.me/khatam_challenge_bot" target="_blank">
+    <div
+      class={`py-2 ${themes[theme].bg.base} ${themes[theme].text.dark} font-light text-center`}
+    >
+      <p class="inline underline">Khatam with your loved ones on Telegram</p>
+      <ExternalIcon />
+    </div>
+  </a>
 </div>
