@@ -4,6 +4,8 @@
   import { themes, Themes } from "../utils/themeClass";
   import ExternalIcon from "./ExternalIcon.svelte";
   import PrayerAllocation from "./PrayerAllocation.svelte";
+  import RightArrowIcon from "./RightArrowIcon.svelte";
+  import ShareIcon from "./ShareIcon.svelte";
   import ThemeMenu from "./ThemeMenu.svelte";
   let isSharingPlan = false;
   let hasGeneratedPlan = false;
@@ -149,7 +151,12 @@
       {#if showGeneratedPlan}
         <p class={`text-sm  ${themes[theme].text.dark}`}>
           Generate your khatam plan at: <br />
-          <span class="font-bold">khatam-planner.jariyah.app</span>
+          <span
+            class="font-bold underline"
+            on:click={() => {
+              hasGeneratedPlan = false;
+            }}>khatam-planner.jariyah.app</span
+          >
         </p>
       {:else if navigator?.canShare}
         <button
@@ -159,7 +166,7 @@
               : themes[theme].button
           }`}
           on:click={sharePlan}
-          disabled={remainder > 0}>Save Plan &nbsp;✅</button
+          disabled={remainder > 0}>Save Plan 🤗</button
         >
       {:else}
         <button
@@ -169,8 +176,9 @@
               : themes[theme].button
           }`}
           on:click={generatePlan}
-          disabled={remainder > 0}>Confirm Plan &nbsp;✅</button
-        >
+          disabled={remainder > 0}
+          >View Screenshot-Worthy Plan {remainder > 0 ? "" : "😎"}
+        </button>
       {/if}
     </div>
   </div>
