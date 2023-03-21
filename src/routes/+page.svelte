@@ -46,10 +46,11 @@
         };
 
         navigator.share(shareData);
+        isSharingPlan = false;
       }, 1000)
       
 
-      isSharingPlan = false;
+      
     } catch (error) {
       console.log("Navigator Share Error", error);
     }
