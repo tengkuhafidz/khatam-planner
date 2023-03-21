@@ -35,10 +35,6 @@
 
   const generatePlan = () => {
     hasGeneratedPlan = true;
-    isSharingPlan = true;
-    setTimeout(() => {
-      isSharingPlan = false;
-    }, 1000);
   };
 
   const resetPlan = () => {
