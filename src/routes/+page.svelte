@@ -124,12 +124,17 @@
       {/if}
     </div>
     <div id="bottom-section" class="py-4">
-      {#if showGeneratedPlan}
-        <p class={`text-sm  text-slate-800`}>
-          Generate your khatam plan at: <br />
-          <span class="font-bold">khatam-planner.jariyah.app</span>
-        </p>
-      {:else if navigator?.canShare}
+      {#if !hasGeneratedPlan}
+        <button
+          class={`py-3 text-xl w-full border-b-8 text-white rounded ${
+            remainder > 0
+              ? "bg-gray-400  border-gray-600 cursor-disabled"
+              : "bg-slate-700  border-slate-900 hover:bg-slate-600 hover:border-slate-800"
+          }`}
+          on:click={generatePlan}
+          disabled={remainder > 0}>Confirm Plan</button
+        >
+      {:else if navigator?.canShare && !isSharingPlan}
         <button
           class={`py-3 text-xl w-full border-b-8 text-white rounded ${
             remainder > 0
@@ -140,15 +145,10 @@
           disabled={remainder > 0}>Share Plan</button
         >
       {:else}
-        <button
-          class={`py-3 text-xl w-full border-b-8 text-white rounded ${
-            remainder > 0
-              ? "bg-gray-400  border-gray-600 cursor-disabled"
-              : "bg-slate-700  border-slate-900 hover:bg-slate-600 hover:border-slate-800"
-          }`}
-          on:click={generatePlan}
-          disabled={remainder > 0}>Generate Page For Screenshot</button
-        >
+        <p class={`text-sm  text-slate-800`}>
+          Generate your khatam plan at: <br />
+          <span class="font-bold">khatam-planner.jariyah.app</span>
+        </p>
       {/if}
     </div>
   </div>
