@@ -51,7 +51,11 @@
       const shareData = {
         files: [planImageFile],
       };
-      navigator.share(shareData);
+
+      setTimeout(() => {
+        navigator.share(shareData);
+      }, 1000);
+
       isSharingPlan = false;
     } catch (error) {
       console.log("Navigator Share Error", error);
