@@ -132,7 +132,8 @@
               : "bg-slate-700  border-slate-900 hover:bg-slate-600 hover:border-slate-800"
           }`}
           on:click={generatePlan}
-          disabled={remainder > 0}>Confirm Plan</button
+          disabled={remainder > 0}
+          >View Generated Plan {#if remainder === 0}&nbsp;👀{/if}</button
         >
       {:else if navigator?.canShare && !isSharingPlan}
         <button
@@ -142,7 +143,7 @@
               : "bg-slate-600  border-slate-800 hover:bg-slate-500 hover:border-slate-800"
           }`}
           on:click={sharePlan}
-          disabled={remainder > 0}>Share Plan</button
+          disabled={remainder > 0}>Share Plan &nbsp✅</button
         >
       {:else}
         <p class={`text-sm  text-slate-800`}>
