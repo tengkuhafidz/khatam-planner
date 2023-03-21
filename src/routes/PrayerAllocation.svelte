@@ -28,9 +28,7 @@
 <div class={`bg-slate-800 py-4 font-bold`}>
   <h2 class="text-white">{prayer}</h2>
 </div>
-<div
-  class={`bg-white py-4 font-bold text-slate-800 inline-flex justify-center`}
->
+<div class={`bg-white py-4 font-bold text-slate-800 flex justify-center`}>
   <div
     class={`${
       pages > 0 ? "cursor-pointer" : "text-gray-400 cursor-not-allowed"

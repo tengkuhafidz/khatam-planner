@@ -141,9 +141,8 @@
     <div id="bottom-section" class="py-4">
       {#if showGeneratedPlan}
         <p class={`text-sm  text-slate-800`}>
-          Generate your khatam plan at: <span class="font-semibold inline-block"
-            >khatam-planner.jariyah.app</span
-          >
+          Generate your khatam plan at: <br />
+          <span class="font-bold">khatam-planner.jariyah.app</span>
         </p>
       {:else if navigator?.canShare}
         <button
