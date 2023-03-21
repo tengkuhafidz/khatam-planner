@@ -29,24 +29,27 @@
   <h2 class="text-white">{prayer}</h2>
 </div>
 <div class={`bg-white py-4 font-bold text-slate-800 flex justify-center`}>
-  <div
-    class={`${
-      pages > 0 ? "cursor-pointer" : "text-gray-400 cursor-not-allowed"
-    } ${isSavingPlan ? "hidden" : ""}`}
-    on:click={decreasePages}
-    on:keypress={() => {}}
-  >
-    <MinusIcon />
-  </div>
+  {#if !isSavingPlan}
+    <div
+      class={`${
+        pages > 0 ? "cursor-pointer" : "text-gray-400 cursor-not-allowed"
+      }`}
+      on:click={decreasePages}
+      on:keypress={() => {}}
+    >
+      <MinusIcon />
+    </div>
+  {/if}
   <p class="mx-2">{pages} {pages === 1 ? "page" : "pages"}</p>
-
-  <div
-    class={` ${
-      remainder > 0 ? "cursor-pointer" : "text-gray-400 cursor-not-allowed"
-    } ${isSavingPlan ? "hidden" : ""}`}
-    on:click={increasePages}
-    on:keypress={() => {}}
-  >
-    <PlusIcon />
-  </div>
+  {#if !isSavingPlan}
+    <div
+      class={` ${
+        remainder > 0 ? "cursor-pointer" : "text-gray-400 cursor-not-allowed"
+      } ${isSavingPlan ? "hidden" : ""}`}
+      on:click={increasePages}
+      on:keypress={() => {}}
+    >
+      <PlusIcon />
+    </div>
+  {/if}
 </div>
