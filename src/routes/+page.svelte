@@ -165,7 +165,7 @@
 </div>
 <div class="pt-12 bg-slate-200">
   <a href="https://t.me/khatam_challenge_bot" target="_blank">
-    <div class="py-2 bg-slate-400  text-slate-900 font-light text-center">
+    <div class="py-2 bg-slate-400 text-slate-900 font-light text-center">
       <p class="inline underline">Khatam with your loved ones on Telegram</p>
       <ExternalIcon />
     </div>
