@@ -34,7 +34,7 @@
   const sharePlan = async () => {
     try {
       isSharingPlan = true;
-      setTimeout(() => {
+      setTimeout(async () => {
         const base64url = await toJpeg(document.getElementById("capture"));
         const blob = await (await fetch(base64url)).blob();
         const planImageFile = new File([blob], "my-khatam-planner.png", {
