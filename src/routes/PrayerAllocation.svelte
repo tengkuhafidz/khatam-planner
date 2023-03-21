@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { themes, type Themes } from "../utils/themeClass";
   import MinusIcon from "./MinusIcon.svelte";
   import PlusIcon from "./PlusIcon.svelte";
 
@@ -7,6 +8,7 @@
   export let remainder: number;
   export let updateRemainder: (shouldReduce: boolean) => void;
   export let isSavingPlan = false;
+  export let theme: Themes;
 
   const increasePages = () => {
     if (remainder > 0) {
@@ -23,10 +25,12 @@
   };
 </script>
 
-<div class={`bg-slate-800 py-4`}>
+<div class={`${themes[theme].bg.dark} py-4`}>
   <h2 class="text-white">{prayer}</h2>
 </div>
-<div class={`bg-white py-4 font-semibold text-slate-800 flex justify-center`}>
+<div
+  class={`bg-white py-4 font-semibold ${themes[theme].text.dark} ${themes[theme].border.dark} flex justify-center`}
+>
   {#if !isSavingPlan}
     <div
       class={`${

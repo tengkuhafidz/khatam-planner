@@ -1,11 +1,19 @@
 <script lang="ts">
   import { toJpeg } from "html-to-image";
   import { calculatePagesPerPrayer } from "../utils/calculations";
+  import { themes, Themes } from "../utils/themeClass";
   import ExternalIcon from "./ExternalIcon.svelte";
   import PrayerAllocation from "./PrayerAllocation.svelte";
+  import ThemeMenu from "./ThemeMenu.svelte";
   let hasGeneratedPlan = false;
   let isSharingPlan = false;
   $: showGeneratedPlan = hasGeneratedPlan || isSharingPlan;
+
+  let theme = Themes.Teal;
+
+  const updateTheme = (newTheme: Themes) => {
+    theme = newTheme;
+  };
 
   let days = 29;
 
@@ -38,7 +46,7 @@
   const sharePlan = async () => {
     try {
       isSharingPlan = true;
-      const base64url = await toJpeg(document.getElementById("capture"));
+      const base64url = await toJpeg(document.getElementById("plan-section"));
       const blob = await (await fetch(base64url)).blob();
       const planImageFile = new File([blob], "my-khatam-planner.png", {
         type: blob.type,
@@ -57,11 +65,19 @@
   };
 </script>
 
-<div class="bg-slate-200  text-center" id="capture">
-  <div class="mx-auto max-w-sm flex flex-col px-4 min-h-screen justify-evenly">
+<div class={`${themes[theme].bg.light}`}>
+  <div
+    class={`${themes[theme].bg.light} text-center mx-auto max-w-sm flex flex-col px-4 min-h-screen justify-evenly`}
+    id="plan-section"
+  >
+    {#if !showGeneratedPlan}
+      <div id="theme-section">
+        <ThemeMenu {updateTheme} />
+      </div>
+    {/if}
     <div id="header-section" class="py-4 ">
       <h1 class={`text-4xl font-bol`}>
-        <div class={`inline-flex text-slate-600`}>
+        <div class={`inline-flex ${themes[theme].text.base}`}>
           My
           {#if showGeneratedPlan}
             {days}
@@ -71,11 +87,13 @@
               onClick="this.select();"
               bind:value={days}
               on:change={onChangeDays}
-              class="text-center border border-dashed rounded mx-1 p-0 border-slate-800 w-16"
+              class={`text-center border border-dashed rounded mx-1 p-0 ${themes[theme].border.dark} w-16`}
             />
           {/if}Days
         </div>
-        <span class={`inline-block text-5xl text-slate-800`}>Khatam Plan</span>
+        <span class={`inline-block text-5xl ${themes[theme].text.dark}`}
+          >Khatam Plan</span
+        >
       </h1>
     </div>
     <div id="main-section" class="py-4">
@@ -86,6 +104,7 @@
           {updateRemainder}
           {remainder}
           isSavingPlan={showGeneratedPlan}
+          {theme}
         />
         <PrayerAllocation
           prayer="Zuhur"
@@ -93,6 +112,7 @@
           {updateRemainder}
           {remainder}
           isSavingPlan={showGeneratedPlan}
+          {theme}
         />
         <PrayerAllocation
           prayer="Asar"
@@ -100,6 +120,7 @@
           {updateRemainder}
           {remainder}
           isSavingPlan={showGeneratedPlan}
+          {theme}
         />
         <PrayerAllocation
           prayer="Maghrib"
@@ -107,6 +128,7 @@
           {updateRemainder}
           {remainder}
           isSavingPlan={showGeneratedPlan}
+          {theme}
         />
         <PrayerAllocation
           prayer="Isya'"
@@ -114,10 +136,11 @@
           {updateRemainder}
           {remainder}
           isSavingPlan={showGeneratedPlan}
+          {theme}
         />
       </div>
       {#if remainder > 0}
-        <p class={`text-lg italic mt-4 text-slate-800`}>
+        <p class={`text-lg italic mt-4 ${themes[theme].text.dark}`}>
           <span class="font-semibold underline decoration-double "
             ><span class="text-2xl">*{remainder} </span>more {remainder === 1
               ? "page"
@@ -132,7 +155,7 @@
           class={`py-3 text-xl w-full border-b-8 text-white rounded ${
             remainder > 0
               ? "bg-gray-400  border-gray-600 cursor-disabled"
-              : "bg-slate-700  border-slate-900 hover:bg-slate-600 hover:border-slate-800"
+              : themes[theme].button
           }`}
           on:click={generatePlan}
           disabled={remainder > 0}
@@ -143,7 +166,7 @@
           class={`py-3 text-xl w-full border-b-8 text-white rounded ${
             remainder > 0
               ? "bg-gray-400  border-gray-600 cursor-disabled"
-              : "bg-slate-600  border-slate-800 hover:bg-slate-500 hover:border-slate-800"
+              : themes[theme].button
           }`}
           on:click={sharePlan}
           disabled={remainder > 0}>Save Plan &nbsp;✅</button
@@ -155,19 +178,21 @@
           Back to draft plan
         </p>
       {:else}
-        <p class={`text-sm  text-slate-800`}>
+        <p class={`text-sm  ${themes[theme].text.dark}`}>
           Generate your khatam plan at: <br />
           <span class="font-bold">khatam-planner.jariyah.app</span>
         </p>
       {/if}
     </div>
   </div>
-</div>
-<div class="pt-12 bg-slate-200">
-  <a href="https://t.me/khatam_challenge_bot" target="_blank">
-    <div class="py-2 bg-slate-400 text-slate-900 font-light text-center">
-      <p class="inline underline">Khatam with your loved ones on Telegram</p>
-      <ExternalIcon />
-    </div>
-  </a>
+  <div class="pt-12">
+    <a href="https://t.me/khatam_challenge_bot" target="_blank">
+      <div
+        class={`py-2 ${themes[theme].bg.base} ${themes[theme].text.dark} font-light text-center`}
+      >
+        <p class="inline underline">Khatam with your loved ones on Telegram</p>
+        <ExternalIcon />
+      </div>
+    </a>
+  </div>
 </div>
