@@ -34,17 +34,20 @@
   const sharePlan = async () => {
     try {
       isSharingPlan = true;
-      const base64url = await toJpeg(document.getElementById("capture"));
-      const blob = await (await fetch(base64url)).blob();
-      const planImageFile = new File([blob], "my-khatam-planner.png", {
-        type: blob.type,
-      });
+      setTimeout(() => {
+        const base64url = await toJpeg(document.getElementById("capture"));
+        const blob = await (await fetch(base64url)).blob();
+        const planImageFile = new File([blob], "my-khatam-planner.png", {
+          type: blob.type,
+        });
 
-      const shareData = {
-        files: [planImageFile],
-      };
+        const shareData = {
+          files: [planImageFile],
+        };
 
-      navigator.share(shareData);
+        navigator.share(shareData);
+      }, 1000)
+      
 
       isSharingPlan = false;
     } catch (error) {
