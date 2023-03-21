@@ -4,8 +4,6 @@
   import { themes, Themes } from "../utils/themeClass";
   import ExternalIcon from "./ExternalIcon.svelte";
   import PrayerAllocation from "./PrayerAllocation.svelte";
-  import RightArrowIcon from "./RightArrowIcon.svelte";
-  import ShareIcon from "./ShareIcon.svelte";
   import ThemeMenu from "./ThemeMenu.svelte";
   let isSharingPlan = false;
   let hasGeneratedPlan = false;
