@@ -21,6 +21,9 @@
   let { subuh, zuhur, asar, maghrib, isyak, remainder } = pagesAllocation;
 
   const onChangeDays = () => {
+    if (!days || isNaN(days) || days < 1) {
+      days = 29;
+    }
     pagesAllocation = calculatePagesPerPrayer(days);
     subuh = pagesAllocation.subuh;
     zuhur = pagesAllocation.zuhur;
@@ -79,13 +82,14 @@
             {days}
           {:else}
             <input
-              type="text"
+              type="number"
               onClick="this.select();"
               bind:value={days}
               on:change={onChangeDays}
               class={`text-center border border-dashed rounded mx-1 p-0 ${themes[theme].border.dark} w-16`}
             />
-          {/if}Days
+          {/if}
+          {days == 1 ? "Day" : "Days"}
         </div>
         <span class={`inline-block text-5xl ${themes[theme].text.dark}`}
           >Khatam Plan</span
