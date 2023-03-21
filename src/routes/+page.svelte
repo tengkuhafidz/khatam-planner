@@ -52,9 +52,7 @@
         files: [planImageFile],
       };
 
-      setTimeout(() => {
-        navigator.share(shareData);
-      }, 1000);
+      navigator.share(shareData);
 
       isSharingPlan = false;
     } catch (error) {

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,700');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,5 +11,5 @@ h1, h2 {
 }
 
 html {
-    font-family: Helvetica, sans-serif;
+    font-family: helvetica, sans-serif;
 }

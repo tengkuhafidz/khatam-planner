@@ -23,10 +23,10 @@
   };
 </script>
 
-<div class={`bg-slate-800 py-4 font-bold`}>
+<div class={`bg-slate-800 py-4`}>
   <h2 class="text-white">{prayer}</h2>
 </div>
-<div class={`bg-white py-4 font-bold text-slate-800 flex justify-center`}>
+<div class={`bg-white py-4 font-semibold text-slate-800 flex justify-center`}>
   {#if !isSavingPlan}
     <div
       class={`${
