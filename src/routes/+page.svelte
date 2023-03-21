@@ -34,10 +34,10 @@
   };
 
   const generatePlan = () => {
+    hasGeneratedPlan = true;
     isSharingPlan = true;
     setTimeout(() => {
       isSharingPlan = false;
-      hasGeneratedPlan = true;
     }, 1000);
   };
 
