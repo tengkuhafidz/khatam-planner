@@ -9,7 +9,8 @@ export interface PagesAllocation {
     remainder: number
 }
 
-export const calculatePagesPerPrayer = (days: number, pagesToRead = TOTAL_PAGES): PagesAllocation => {
+export const calculatePagesPerPrayer = (days: number, startingPage = 1): PagesAllocation => {
+    const pagesToRead = TOTAL_PAGES - startingPage + 1
     const pagesPerDay = pagesToRead / days
     const precisePagesPerPrayer = Number((pagesPerDay / NUM_OF_PRAYERS).toFixed(2))
     const constantPagesPerPrayer = Math.floor(precisePagesPerPrayer)

@@ -16,15 +16,21 @@
   };
 
   let days = 29;
+  let startingPage = 1;
 
-  let pagesAllocation = calculatePagesPerPrayer(days);
+  let pagesAllocation = calculatePagesPerPrayer(days, startingPage);
   let { subuh, zuhur, asar, maghrib, isyak, remainder } = pagesAllocation;
 
-  const onChangeDays = () => {
+  const onChangeInput = () => {
     if (!days || isNaN(days) || days < 1) {
       days = 29;
     }
-    pagesAllocation = calculatePagesPerPrayer(days);
+
+    if (!startingPage || isNaN(startingPage) || startingPage < 1) {
+      startingPage = 1;
+    }
+
+    pagesAllocation = calculatePagesPerPrayer(days, startingPage);
     subuh = pagesAllocation.subuh;
     zuhur = pagesAllocation.zuhur;
     asar = pagesAllocation.asar;
@@ -85,7 +91,7 @@
               type="number"
               onClick="this.select();"
               bind:value={days}
-              on:change={onChangeDays}
+              on:change={onChangeInput}
               class={`text-center border border-dashed rounded mx-1 p-0 ${themes[theme].border.dark} w-16`}
             />
           {/if}
@@ -95,6 +101,20 @@
           >Khatam Plan</span
         >
       </h1>
+      <h2 class={`mt-2  ${themes[theme].text.base} font-light`}>
+        Starting from page
+        {#if showGeneratedPlan}
+          {startingPage}
+        {:else}
+          <input
+            type="number"
+            onClick="this.select();"
+            bind:value={startingPage}
+            on:change={onChangeInput}
+            class={`text-center border border-dashed rounded mx-1 p-0 ${themes[theme].border.dark} w-8`}
+          />
+        {/if}
+      </h2>
     </div>
     <div id="main-section" class="py-4">
       <div class="grid grid-cols-2 text-xl gap-y-6">
