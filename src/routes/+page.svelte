@@ -5,6 +5,12 @@
   import ExternalIcon from "./ExternalIcon.svelte";
   import PrayerAllocation from "./PrayerAllocation.svelte";
   import ThemeMenu from "./ThemeMenu.svelte";
+
+  export let data;
+
+  let days = data.days;
+  let startingPage = data.startingPage;
+
   let isSharingPlan = false;
   let hasGeneratedPlan = false;
   $: showGeneratedPlan = isSharingPlan || hasGeneratedPlan;
@@ -14,9 +20,6 @@
   const updateTheme = (newTheme: Themes) => {
     theme = newTheme;
   };
-
-  let days = 29;
-  let startingPage = 1;
 
   let pagesAllocation = calculatePagesPerPrayer(days, startingPage);
   let { subuh, zuhur, asar, maghrib, isyak, remainder } = pagesAllocation;
